@@ -6,7 +6,7 @@ priezvisko TEXT,
 pohlavie TEXT,
 trieda TEXT,
 datum_nar DATE,
-pozn jsonb,
+pozn jsonb
 );
 
 DROP TABLE IF EXISTS ucitel;
