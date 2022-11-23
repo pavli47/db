@@ -6,7 +6,7 @@ priezvisko TEXT,
 pohlavie TEXT,
 trieda TEXT,
 datum_nar DATE,
-pozn jsonb
+pozn jsonb,
 );
 
 DROP TABLE IF EXISTS ucitel;
@@ -40,9 +40,9 @@ predmet TEXT);
 
 
 INSERT INTO student VALUES(1,'Anna', 'Abová', 'Ž', '1.A', '2004-12-12','{"porucha ": "dyslexia"}');
-INSERT INTO student VALUES(2,'Bruno', 'Bell', 'M', '2.B', '2004-11-01','{}');
+INSERT INTO student VALUES(2,'Bruno', 'Bell', 'M', '2.B', '2004-11-01','{"kruzky" : ["vytvarna", "klavir"]}');
 INSERT INTO student VALUES(3,'Cecil', 'Cinkota', 'M', '3.C', '2003-05-28','{"alergia":"penicilin"}');
-INSERT INTO student VALUES(4,'Diana', 'Držková', 'Ž', '1.A', '2004-08-20','{}');
+INSERT INTO student VALUES(4,'Diana', 'Držková', 'Ž', '1.A', '2004-08-20','{"kruzky" : ["angličtina"]}');
 
 INSERT INTO ucitel VALUES(1,'Žaneta', 'Žilková', 'Ž');
 INSERT INTO ucitel VALUES(2,'Xénia', 'Xindl', 'Ž');
