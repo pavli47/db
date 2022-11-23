@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS student;
+
 CREATE TABLE student(
 id INT,
 meno TEXT,
