@@ -13,9 +13,7 @@ CREATE TABLE ucitel(
 id INT,
 meno TEXT,
 priezvisko TEXT,
-pohlavie TEXT,
-
-);
+pohlavie TEXT);
 
 DROP TABLE IF EXISTS predmet;
 CREATE TABLE predmet(
@@ -38,7 +36,7 @@ DROP TABLE IF EXISTS triedy;
 CREATE TABLE triedy(
 
 trieda TEXT,
-predmet TEXT,
+predmet TEXT
 );
 
 
