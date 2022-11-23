@@ -5,7 +5,8 @@ meno TEXT,
 priezvisko TEXT,
 pohlavie TEXT,
 trieda TEXT,
-datum_nar DATE
+datum_nar DATE,
+pozn jsonb
 );
 
 DROP TABLE IF EXISTS ucitel;
@@ -38,7 +39,7 @@ trieda TEXT,
 predmet TEXT);
 
 
-INSERT INTO student VALUES(1,'Anna', 'Abová', 'Ž', '1.A', '2004-12-12');
+INSERT INTO student VALUES(1,'Anna', 'Abová', 'Ž', '1.A', '2004-12-12','{"porucha ": "dyslexia"}');
 INSERT INTO student VALUES(2,'Bruno', 'Bell', 'M', '2.B', '2004-11-01');
 INSERT INTO student VALUES(3,'Cecil', 'Cinkota', 'M', '3.C', '2003-05-28');
 INSERT INTO student VALUES(4,'Diana', 'Držková', 'Ž', '1.A', '2004-08-20');
@@ -69,3 +70,17 @@ INSERT INTO triedy VALUES('3.C', 'ENG');
 INSERT INTO triedy VALUES('3.C', 'MAT');
 INSERT INTO triedy VALUES('3.C', 'SJL');
 
+ALTER TABLE student ADD prihlasovacie_meno TEXT;
+ALTER TABLE ucitel ADD prihlasovacie_meno TEXT;
+
+
+UPDATE student SET prihlasovacie_meno = "annaab" where id =1;
+UPDATE student SET prihlasovacie_meno = "brunob" where id =2;
+UPDATE student SET prihlasovacie_meno = "cecilc" where id =3;
+UPDATE student SET prihlasovacie_meno = "dianad" where id =4;
+
+
+UPDATE ucitel SET prihlasovacie_meno = "zanetaz" where id =1;
+UPDATE ucitel SET prihlasovacie_meno = "xeniax" where id =2;
+UPDATE ucitel SET prihlasovacie_meno = "wiliamw" where id =3;
+UPDATE ucitel SET prihlasovacie_meno = "viktorv" where id =4;
