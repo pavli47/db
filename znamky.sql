@@ -86,6 +86,8 @@ UPDATE ucitel SET prihlasovacie_meno = 'xeniax' where id =2;
 UPDATE ucitel SET prihlasovacie_meno = 'wiliamw' where id =3;
 UPDATE ucitel SET prihlasovacie_meno = 'viktorv' where id =4;
 
+
+
 SELECT meno, priezvisko from student where pozn ->>'porucha' = 'dyslexia';
 
 
