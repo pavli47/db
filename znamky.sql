@@ -75,7 +75,7 @@ ALTER TABLE student ADD prihlasovacie_meno TEXT;
 ALTER TABLE ucitel ADD prihlasovacie_meno TEXT;
 
 ALTER TABLE student ADD pozn jsonb;
-update student set pozn = pozn ||  '{"porucha":"dyslexia"}'::jsonb where id =1;
+update student set pozn = '{"porucha":"dyslexia"}'::jsonb where id =1;
 SELECT meno, priezvisko from student where pozn ->>'porucha' = 'dyslexia';
 
 UPDATE student SET prihlasovacie_meno = 'annaab' where id =1;
