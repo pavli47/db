@@ -88,10 +88,11 @@ UPDATE ucitel SET prihlasovacie_meno = 'xeniax' where id =2;
 UPDATE ucitel SET prihlasovacie_meno = 'wiliamw' where id =3;
 UPDATE ucitel SET prihlasovacie_meno = 'viktorv' where id =4;
 
-CREATE  UNIQUE INDEX ind ON student(lower(prihlasovacie_meno));  
-CREATE  UNIQUE INDEX ind ON  ucitel(lower(prihlasovacie_meno));  
+CREATE  UNIQUE INDEX ind ON student(lower(student.prihlasovacie_meno));  
+CREATE  UNIQUE INDEX ind ON  ucitel(lower(ucitel.prihlasovacie_meno));  
 
-SELECT meno, priezvisko from student where pozn ->>'porucha' = 'dyslexia';
+update student set pozn = pozn ||  '{"porucha":"dyslexia"}' where id =1;
+
 
  /* 5 */
 SELECT meno , priezvisko, predmet, count(z.student), string_agg(znamka, ',') from student 
