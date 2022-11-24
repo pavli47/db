@@ -75,7 +75,8 @@ ALTER TABLE student ADD prihlasovacie_meno TEXT;
 ALTER TABLE ucitel ADD prihlasovacie_meno TEXT;
 
 ALTER TABLE student ADD pozn jsonb;
-UPDATE student SET pozn->'porucha' = 'dyslexia' where id =1;
+update student set pozn = pozn ||  '{"porucha":"dyslexia"}'::jsonb where id =1;
+SELECT meno, priezvisko from student where pozn ->>'porucha' = 'dyslexia';
 
 UPDATE student SET prihlasovacie_meno = 'annaab' where id =1;
 UPDATE student SET prihlasovacie_meno = 'brunob' where id =2;
@@ -89,9 +90,9 @@ UPDATE ucitel SET prihlasovacie_meno = 'wiliamw' where id =3;
 UPDATE ucitel SET prihlasovacie_meno = 'viktorv' where id =4;
 
 CREATE  UNIQUE INDEX ind ON student(lower(student.prihlasovacie_meno));  
-CREATE  UNIQUE INDEX ind ON  ucitel(lower(ucitel.prihlasovacie_meno));  
+CREATE  UNIQUE INDEX ind2 ON  ucitel(lower(ucitel.prihlasovacie_meno));  
 
-update student set pozn = pozn ||  '{"porucha":"dyslexia"}' where id =1;
+
 
 
  /* 5 */
