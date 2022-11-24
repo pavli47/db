@@ -71,9 +71,15 @@ INSERT INTO triedy VALUES('3.C', 'ENG');
 INSERT INTO triedy VALUES('3.C', 'MAT');
 INSERT INTO triedy VALUES('3.C', 'SJL');
 
+ /* 3 */
 ALTER TABLE student ADD prihlasovacie_meno TEXT;
 ALTER TABLE ucitel ADD prihlasovacie_meno TEXT;
 
+CREATE  UNIQUE INDEX ind ON student(lower(student.prihlasovacie_meno));  
+CREATE  UNIQUE INDEX ind2 ON  ucitel(lower(ucitel.prihlasovacie_meno));  
+
+ /* 4 */
+ 
 ALTER TABLE student ADD pozn jsonb;
 update student set pozn = '{"porucha":"dyslexia"}'::jsonb where id =1;
 SELECT meno, priezvisko from student where pozn ->>'porucha' = 'dyslexia';
@@ -89,8 +95,6 @@ UPDATE ucitel SET prihlasovacie_meno = 'xeniax' where id =2;
 UPDATE ucitel SET prihlasovacie_meno = 'wiliamw' where id =3;
 UPDATE ucitel SET prihlasovacie_meno = 'viktorv' where id =4;
 
-CREATE  UNIQUE INDEX ind ON student(lower(student.prihlasovacie_meno));  
-CREATE  UNIQUE INDEX ind2 ON  ucitel(lower(ucitel.prihlasovacie_meno));  
 
 
 
