@@ -113,12 +113,22 @@ UPDATE ucitel SET prihlasovacie_meno = 'xeniax' where ucitel_id =2;
 UPDATE ucitel SET prihlasovacie_meno = 'wiliamw' where ucitel_id =3;
 UPDATE ucitel SET prihlasovacie_meno = 'viktorv' where ucitel_id =4;
 
+
+/*kontroly constraints*/
 INsert INTO triedy values('1.A', 'MAT');
 INSERT INTO student values(5,'Maria', 'Minariková', 'ano','4.S', '1900-01-01');
 UPDATE  student  set pohlavie = 'lol' where meno = 'Anna';
 INSERT INTO student values(5,NULL, 'Minariková', 'Ž','4.S', '1900-01-01');
 INSERT INTO znamky(znamka,student_id,ucitel_id,predmet, vaha) values('1',8,1,'ENG',1);
 INSERT INTO znamky(znamka,student_id,ucitel_id,predmet, vaha) values('1',1,1,'DEJ',1);
+delete from predmety where predmet = 'ENG';
+
+UPDATE znamky set ucitel_id = 2 where ucitel_id = 1;
+DELETE from ucitel where ucitel_id = 1;
+DELETE from ucitel where ucitel_id = 2;
+
+
+
 
 
 
