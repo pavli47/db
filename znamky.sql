@@ -14,7 +14,7 @@ CREATE TABLE ucitel (
 ucitel_id SERIAL PRIMARY KEY,
 meno TEXT NOT NULL,
 priezvisko TEXT NOT NULL,
-pohlavie TEXT (pohlavie in ('žena','muž' , 'nebinárny','neuvedené' ) );
+pohlavie TEXT CHECK(pohlavie in ('žena','muž' , 'nebinárny','neuvedené' ) ));
 
 DROP TABLE IF EXISTS predmety;
 CREATE TABLE predmety(
