@@ -4,7 +4,7 @@ CREATE TABLE student(
 student_id SERIAL PRIMARY KEY,
 meno TEXT  NOT NULL,
 priezvisko TEXT NOT NULL,
-pohlavie TEXT CHECK(pohlavie in ('žena','muž' , 'nebinárny','neuvedené' ) ),
+pohlavie TEXT CHECK(pohlavie in ('Ž','M' , 'nebinárny','neuvedené' ) ),
 trieda TEXT NOT NULL,
 datum_nar DATE CHECK(datum_nar between '1990-01-01' and '2100-01-01')
 );
@@ -21,15 +21,15 @@ CREATE TABLE predmety(
 predmet TEXT PRIMARY KEY NOT NULL,
 cely_nazov TEXT);
 
-DROP TABLE IF EXISTS znamka;
-CREATE TABLE znamka(
+DROP TABLE IF EXISTS znamky;
+CREATE TABLE znamky(
 id SERIAL PRIMARY KEY,
 znamka TEXT NOT NULL, 
 student_id INT NOT NULL,
 ucitel_id INT NOT NULL,
 predmet TEXT NOT NULL,
 cas TIME,
-datum DATE (datum between  '1990-01-01' and '2100-01-01'),
+datum DATE CHECK(datum between  '1990-01-01' and '2100-01-01'),
 pozn TEXT,
 vaha FLOAT NOT NULL, 
 CONSTRAINT fk_student
@@ -72,11 +72,11 @@ INSERT INTO predmety VALUES('Angličtina', 'ENG');
 INSERT INTO predmety VALUES('Slovenčina', 'SJL');
 
 
-INSERT INTO znamka VALUES('1',1, 1, 'MAT',  '13:30', '2021-12-19', 'uloha', 1);
-INSERT INTO znamka VALUES('1',1, 2, 'SJL',  '12:30', '2021-12-18', 'pisomka', 2);
-INSERT INTO znamka VALUES('1',2, 1, 'MAT',  '12:00', '2021-12-17', 'test', 2);
-INSERT INTO znamka VALUES('4',3, 3, 'ENG',  '08:30', '2021-12-11', 'test', 2);
-INSERT INTO znamka VALUES('pochvala',3, 3, 'ENG',  '09:30', '2021-12-11', 'konverzácia', 0.5);
+INSERT INTO znamky VALUES('1',1, 1, 'MAT',  '13:30', '2021-12-19', 'uloha', 1);
+INSERT INTO znamky VALUES('1',1, 2, 'SJL',  '12:30', '2021-12-18', 'pisomka', 2);
+INSERT INTO znamky VALUES('1',2, 1, 'MAT',  '12:00', '2021-12-17', 'test', 2);
+INSERT INTO znamky VALUES('4',3, 3, 'ENG',  '08:30', '2021-12-11', 'test', 2);
+INSERT INTO znamky VALUES('pochvala',3, 3, 'ENG',  '09:30', '2021-12-11', 'konverzácia', 0.5);
 
 INSERT INTO triedy  VALUES('1.A', 'MAT');
 INSERT INTO triedy  VALUES('1.A', 'SJL');
