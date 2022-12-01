@@ -67,9 +67,9 @@ INSERT INTO ucitel(meno,priezvisko,pohlavie) VALUES('Xénia', 'Xindl', 'Ž');
 INSERT INTO ucitel(meno,priezvisko,pohlavie) VALUES('William', 'Willis', 'M');
 INSERT INTO ucitel(meno,priezvisko,pohlavie) VALUES('Viktor', 'Vanek', 'M');
 
-INSERT INTO predmety VALUES('Matematika', 'MAT');
-INSERT INTO predmety VALUES('Angličtina', 'ENG');
-INSERT INTO predmety VALUES('Slovenčina', 'SJL');
+INSERT INTO predmety VALUES('MAT','Matematika');
+INSERT INTO predmety VALUES('ENG','Angličtina');
+INSERT INTO predmety VALUES('SJL',Slovenčina');
 
 
 INSERT INTO znamky(znamka,student_id,ucitel_id,predmet,cas,datum,pozn, vaha) VALUES ('1',1, 1, 'MAT',  '13:30', '2021-12-19', 'uloha', 1);
