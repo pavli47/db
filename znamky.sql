@@ -1,42 +1,60 @@
 DROP TABLE IF EXISTS student;
 
 CREATE TABLE student(
-id INT,
-meno TEXT,
-priezvisko TEXT,
-pohlavie TEXT,
-trieda TEXT,
-datum_nar DATE
+student_id SERIAL PRIMARY KEY,
+meno TEXT  NOT NULL,
+priezvisko TEXT NOT NULL,
+pohlavie TEXT CHECK(pohlavie = "žena" or pohlavie = "muž" or pohlavie = "nebinárny" or pohlavie = "neuvedené"  ),
+trieda TEXT NOT NULL,
+datum_nar DATE CHECK(datum_nar > 1990-01-01 and datum_nar<2100-01-01)
 );
 
 DROP TABLE IF EXISTS ucitel;
 CREATE TABLE ucitel (
-id INT,
-meno TEXT,
-priezvisko TEXT,
-pohlavie TEXT);
+ucitel_id SERIAL PRIMARY KEY,
+meno TEXT NOT NULL,
+priezvisko TEXT NOT NULL,
+pohlavie TEXT (pohlavie = "žena" or pohlavie = "muž" or pohlavie = "nebinárny" or pohlavie = "neuvedené"  ) );
 
-DROP TABLE IF EXISTS predmet;
-CREATE TABLE predmet(
-
-nazov TEXT,
-skratka TEXT);
+DROP TABLE IF EXISTS predmety;
+CREATE TABLE predmety(
+predmet TEXT PRIMARY KEY NOT NULL,
+cely_nazov TEXT);
 
 DROP TABLE IF EXISTS znamka;
 CREATE TABLE znamka(
-znamka TEXT, 
-student INT,
-ucitel INT,
-predmet TEXT,
+id SERIAL PRIMARY KEY,
+znamka TEXT NOT NULL, 
+student_id INT NOT NULL,
+ucitel_id INT NOT NULL,
+predmet TEXT NOT NULL,
 cas TIME,
-datum DATE,
+datum DATE (datum > 1990-01-01 and datum_nar<2100-01-01),
 pozn TEXT,
-vaha FLOAT);
+vaha FLOAT NOT NULL, 
+CONSTRAINT fk_student
+	FOREIGN KEY(student_id)
+		REFERENCES student(student_id)
+			ON DELETE  CASCADE
+			ON UPDATE CASCADE,
+CONSTRAINT fk_ucitel
+	FOREIGN KEY(ucitel_id)
+		REFERENCES ucitel(ucitel_id)
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE,
+CONSTRAINT fk_predmet
+	FOREIGN KEY(predmet)
+		REFERENCES predmety(predmet)
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE
+);
 
 DROP TABLE IF EXISTS triedy;
 CREATE TABLE triedy(
-trieda TEXT,
-predmet TEXT);
+trieda TEXT NOT NULL,
+predmet TEXT NOT NULL, 
+UNIQUE(trieda,predmet),
+PRIMARY KEY (trieda,predmet));
 
 
 INSERT INTO student VALUES(1,'Anna', 'Abová', 'Ž', '1.A', '2004-12-12');
@@ -49,9 +67,9 @@ INSERT INTO ucitel VALUES(2,'Xénia', 'Xindl', 'Ž');
 INSERT INTO ucitel VALUES(3,'William', 'Willis', 'M');
 INSERT INTO ucitel VALUES(4,'Viktor', 'Vanek', 'M');
 
-INSERT INTO predmet VALUES('Matematika', 'MAT');
-INSERT INTO predmet VALUES('Angličtina', 'ENG');
-INSERT INTO predmet VALUES('Slovenčina', 'SJL');
+INSERT INTO predmety VALUES('Matematika', 'MAT');
+INSERT INTO predmety VALUES('Angličtina', 'ENG');
+INSERT INTO predmety VALUES('Slovenčina', 'SJL');
 
 
 INSERT INTO znamka VALUES('1',1, 1, 'MAT',  '13:30', '2021-12-19', 'uloha', 1);
@@ -81,30 +99,18 @@ CREATE  UNIQUE INDEX ind2 ON  ucitel(lower(ucitel.prihlasovacie_meno));
  /* 4 */
  
 ALTER TABLE student ADD pozn jsonb;
-update student set pozn = '{"porucha":"dyslexia"}'::jsonb where id =1;
+update student set pozn = '{"porucha":"dyslexia"}'::jsonb where student_id =1;
 SELECT meno, priezvisko from student where pozn ->>'porucha' = 'dyslexia';
 
-UPDATE student SET prihlasovacie_meno = 'annaab' where id =1;
-UPDATE student SET prihlasovacie_meno = 'brunob' where id =2;
-UPDATE student SET prihlasovacie_meno = 'cecilc' where id =3;
-UPDATE student SET prihlasovacie_meno = 'dianad' where id =4;
+UPDATE student SET prihlasovacie_meno = 'annaab' where student_id =1;
+UPDATE student SET prihlasovacie_meno = 'brunob' where student_id =2;
+UPDATE student SET prihlasovacie_meno = 'cecilc' where student_id =3;
+UPDATE student SET prihlasovacie_meno = 'dianad' where student_id =4;
 
 
-UPDATE ucitel SET prihlasovacie_meno = 'zanetaz' where id =1;
-UPDATE ucitel SET prihlasovacie_meno = 'xeniax' where id =2;
-UPDATE ucitel SET prihlasovacie_meno = 'wiliamw' where id =3;
-UPDATE ucitel SET prihlasovacie_meno = 'viktorv' where id =4;
+UPDATE ucitel SET prihlasovacie_meno = 'zanetaz' where ucitel_id =1;
+UPDATE ucitel SET prihlasovacie_meno = 'xeniax' where ucitel_id =2;
+UPDATE ucitel SET prihlasovacie_meno = 'wiliamw' where ucitel_id =3;
+UPDATE ucitel SET prihlasovacie_meno = 'viktorv' where ucitel_id =4;
 
 
-
-
-
- /* 5 */
-SELECT meno , priezvisko, predmet, count(z.student), string_agg(znamka, ',') from student 
-s inner join znamka z on s.id = z.student group by s.meno, z.predmet, s.priezvisko;
-
- /* 6 */
-select  u.meno, u.priezvisko, sum(CAST(znamka AS float)*z.vaha)/ sum(z.vaha) from ucitel u  left join znamka z  on z.ucitel = u.id where z.znamka ~ '^[0-9\.]+$' group by u.id, u.meno, u.priezvisko   ;
- 
- /* 7 */
-(select s.meno, s.priezvisko,  t.trieda, t.predmet from triedy t inner join student s on s.trieda = t.trieda)  except  (select meno, priezvisko, trieda , predmet   from student s inner join znamka z on z.student = s.id) ;
