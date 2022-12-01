@@ -6,7 +6,7 @@ meno TEXT  NOT NULL,
 priezvisko TEXT NOT NULL,
 pohlavie TEXT CHECK(pohlavie in ('Ž','M' , 'nebinárny','neuvedené' ) ),
 trieda TEXT NOT NULL,
-datum_nar DATE CHECK(datum_nar between '1990-01-01' and '2100-01-01')
+datum_nar DATE CHECK(datum_nar between '1990-01-01' and 2022-01-01')
 );
 
 DROP TABLE IF EXISTS ucitel;
@@ -29,7 +29,7 @@ student_id INT NOT NULL,
 ucitel_id INT NOT NULL,
 predmet TEXT NOT NULL,
 cas TIME,
-datum DATE CHECK(datum between  '1990-01-01' and '2100-01-01'),
+datum DATE CHECK(datum between  '1990-01-01' and '2022-01-01'),
 pozn TEXT,
 vaha FLOAT NOT NULL, 
 CONSTRAINT fk_student
