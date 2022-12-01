@@ -127,9 +127,15 @@ UPDATE znamky set ucitel_id = 2 where ucitel_id = 1;
 DELETE from ucitel where ucitel_id = 1;
 DELETE from ucitel where ucitel_id = 2;
 
+/* pokusy o view priemery*/
 
 
-
+ CREATE view priemery as SELECT meno , priezvisko, t.predmet, count(z.student_id), sum(CAST(znamka AS float)*z.vaha)/ sum(z.vaha) from student
+s left  join znamky z on z.student_id = s.student_id   right join triedy t on t.trieda = s.trieda where z.znamka ~ '^[0-9\.]+$' group by s.meno, t.predmet,s.priezvisko
+;
+CREATE view priemery as SELECT meno , priezvisko, t.predmet, count(z.student_id), sum(CAST(znamka AS float)*z.vaha)/ sum(z.vaha) from student
+s left  join znamky z on z.student_id = s.student_id   right join triedy t on t.trieda = s.trieda where z.znamka ~ '^[0-9\.]+$' and z.predmet = t.predmet   group by s.meno, t.predmet,s.priezvisko
+;
 
 
 
