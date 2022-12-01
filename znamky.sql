@@ -6,7 +6,7 @@ meno TEXT  NOT NULL,
 priezvisko TEXT NOT NULL,
 pohlavie TEXT CHECK(pohlavie in ('Ž','M' , 'nebinárny','neuvedené' ) ),
 trieda TEXT NOT NULL,
-datum_nar DATE CHECK(datum_nar between '1990-01-01' and 2022-01-01')
+datum_nar DATE CHECK(datum_nar between '1990-01-01' and '2022-01-01')
 );
 
 DROP TABLE IF EXISTS ucitel;
