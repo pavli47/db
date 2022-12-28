@@ -42,20 +42,20 @@ PRIMARY KEY(testid, questionnumber),
 drop table if exists assignments;
 create table assignements(
 fromprof INT NOT NULL,
-to INT NOT NULL,
+tostudent INT NOT NULL,
 date DATE NOT NULL,
 test INT  NOT NULL,
   assignemntid SERIAL,
-  PRIMARY KEY(test , to ),
+  PRIMARY KEY(test , tostudent ),
   
   constraint pr
   foreign key (fromprof)
   references professors(id)
   
-  foreign key (to)
+  foreign key (tostudent)
   references students(id)
 
-  constraint tst
+
   foreign key (test)
   referebces tests(id)
    on delete cascade
@@ -91,40 +91,40 @@ idtry INT,
   answer TEXT,
   PRIMARY KEY(idtry, questionnumber),
    constraint ids
-  foreign key idtry 
+  foreign key (idtry) 
   references tries(id)
      on delete cascade
   on update cascade
 );
 
 
-insert into students values("Anna", "Adams");
-insert into students values("Bruno", "Bills");
-insert into students values("Charlie", "Collins");
+insert into students values('Anna', 'Adams');
+insert into students values('Bruno', 'Bills');
+insert into students values('Charlie', 'Collins');
 
-insert into professors values("Maria", "Moralez");
-insert into students values("Nina", "Nixon");
-insert into students values("Oliver", "Olsen");
+insert into professors values('Maria', 'Moralez');
+insert into students values('Nina', 'Nixon');
+insert into students values('Oliver', 'Olsen');
 
-insert into tests values(1, "Spanish Unit 1");
-insert into tests values(2, "Slovak");
-insert into tests values(3, "Math1");
-insert into tests values(3, "Math2");
-insert into tests values(10, "error");
+insert into tests values(1, 'Spanish Unit 1');
+insert into tests values(2, 'Slovak');
+insert into tests values(3, 'Math1');
+insert into tests values(3, 'Math2');
+insert into tests values(10, 'error');
 
+'
+insert into questions(1,1,'dog' , 'A', 'perro', 'caro','pero','gato');
+insert into questions(1,2,'but' , 'B', 'perro', 'pero','lero','gato');
+insert into questions(1,3,'hi' , 'C', 'perro', 'pero','hola','gato');
 
-insert into questions(1,1,"dog" , 'A', "perro", "caro","pero","gato");
-insert into questions(1,2,"but" , 'B', "perro", "pero","lero","gato");
-insert into questions(1,3,"hi" , 'C', "perro", "pero","hola","gato");
+insert into questions(2,1,'hi' , 'C', 'ale', 'nie','ahoj','gate');
+insert into questions(2,2,'yes' , 'A', 'ano', 'pero','nie','gate');
 
-insert into questions(2,1,"hi" , 'C', "ale", "nie","ahoj","gate");
-insert into questions(2,2,"yes" , 'A', "ano", "pero","nie","gate");
+insert into questions(3,1,'2+1' , 'A', '3', '4','5','6');
+insert into questions(3,2,'2*1' , 'B', '3', '2','22','6');
+insert into questions(3,3,'2/1' , 'D', '3', '4','5','2');
 
-insert into questions(3,1,"2+1" , 'A', "3", "4","5","6");
-insert into questions(3,2,"2*1" , 'B', "3", "2","22","6");
-insert into questions(3,3,"2/1" , 'D', "3", "4","5","2");
-
-insert into questions(14,1,"error");
+insert into questions(14,1,'error');
 
 
 
