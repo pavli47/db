@@ -128,7 +128,7 @@ insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(3,1
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(3,2,'2*1' , 'B', '3', '2','22','6');
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(3,3,'2/1' , 'D', '3', '4','5','2');
 
-insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(14,1,'error');
+insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(14,1,'error','','','','','');
 
 
 
