@@ -16,7 +16,7 @@ id SERIAL PRIMARY KEY,
 author INT NOT NULL,
 name TEXT,
     constraint prof
-        FOREIGN KEY author
+        FOREIGN KEY (author)
           REFERENCES professors(id) 
            ON DELETE cascade
            ON UPDATE cascade );
@@ -33,7 +33,7 @@ C TEXT,
 D TEXT,
 PRIMARY KEY(testid, questionnumber),
   CONSTRAINT test_x
-  FOREIGN KEY testid
+  FOREIGN KEY (testid)
   REFERENCES tests(id)
    ON DELETE cascade
    ON UPDATE cascade
@@ -49,14 +49,14 @@ test INT  NOT NULL,
   PRIMARY KEY(test , to ),
   
   constraint pr
-  foreign key fromprof
+  foreign key (fromprof)
   references professors(id)
   
-  foreign key to
+  foreign key (to)
   references students(id)
 
   constraint tst
-  foreign key test
+  foreign key (test)
   referebces tests(id)
    on delete cascade
   on update cascade
@@ -73,7 +73,7 @@ assignmentid INT,
    DEFAULT (current_timestamp AT TIME ZONE 'UTC'), 
   PRIMARY KEY(assignmentid, time),
   constraint ids
-  foreign key assignmentid
+  foreign key (assignmentid)
   references assignments(assignemntid)
      on delete cascade
   on update cascade
