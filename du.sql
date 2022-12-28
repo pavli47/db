@@ -1,16 +1,22 @@
 drop table if exists students;
+drop table if exists professors;
+drop table if exists tests;
+drop table if exists questions;
+drop table if exists assignments;
+drop table if exists tries; 
+drop table if exists answears ;
+
 create table students(
 id SERIAL PRIMARY KEY ,
 name TEXT NOT NULL,
 lastname TEXT NOT NULL);
 
-drop table if exists professors;
+
 create table professors(
 id SERIAL PRIMARY KEY,
 name TEXT NOT NULL,
 lastname TEXT NOT NULL);
 
-drop table if exists tests;
 create table tests(
 id SERIAL PRIMARY KEY,
 author INT NOT NULL,
@@ -21,7 +27,7 @@ name TEXT,
            ON DELETE cascade
            ON UPDATE cascade );
 
-drop table  if exists questions;
+
 create table questions(
 testid INT,
 questionnumber INT,
@@ -39,7 +45,6 @@ PRIMARY KEY(testid, questionnumber),
    ON UPDATE cascade
 );
 
-drop table if exists assignments;
 create table assignements(
 fromprof INT NOT NULL,
 tostudent INT NOT NULL,
@@ -65,7 +70,7 @@ test INT  NOT NULL,
 )
   ;
 
-drop table if exists tries; 
+
 create table tries(
 id SERIAL,
 assignmentid INT,
@@ -84,7 +89,6 @@ assignmentid INT,
 );
 
 
-drop table if exists answears ;
 create table answears(
 idtry INT,
   questionnumber INT,
