@@ -107,8 +107,8 @@ insert into students(name,lastname) values('Bruno', 'Bills');
 insert into students(name,lastname) values('Charlie', 'Collins');
 
 insert into professors(name,lastname) values('Maria', 'Moralez');
-insert into students(name,lastname) values('Nina', 'Nixon');
-insert into students(name,lastname) values('Oliver', 'Olsen');
+insert into professors(name,lastname) values('Nina', 'Nixon');
+insert into professors(name,lastname) values('Oliver', 'Olsen');
 
 insert into tests(author,name) values(1, 'Spanish Unit 1');
 insert into tests(author,name) values(2, 'Slovak');
@@ -150,5 +150,5 @@ insert into answears(idtry ,questionnumber ,answer) values(1,3,'C');
 insert into answears(idtry ,questionnumber ,answer) values(2,1,'B');
 insert into answears(idtry ,questionnumber ,answer) values(2,2,'A');
 insert into answears(idtry ,questionnumber ,answer) values(3,1,'A');
-insert into answears(idtry ,questionnumber ,answer) values(4); /*error*/
+insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
 
