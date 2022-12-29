@@ -154,5 +154,5 @@ insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
 delete from tests where id= 1;
 
  alter table assignments add column deadline TIMESTAMP check(deadline> current_timestamp AT TIME ZONE 'UTC');
- alter table tries add column deadline TIMESTAMP CONSTRAINT y_x_fk_c REFERENCES assignmets(deadline)
+ alter table tries add column deadline TIMESTAMP CONSTRAINT y_x_fk_c REFERENCES assignments(deadline)
 ON UPDATE CASCADE ON DELETE CASCADE; 
