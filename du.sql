@@ -80,7 +80,7 @@ test INT  NOT NULL,
 
 create table tries(
 id SERIAL,
-assignmentid integer,
+assignmentid integer NOT NULL,
   time timestamp without time zone NOT NULL
    DEFAULT (current_timestamp AT TIME ZONE 'UTC'), 
   PRIMARY KEY(assignmentid, time),
@@ -94,9 +94,9 @@ assignmentid integer,
 
 
 create table answears(
-idtry INT,
-  questionnumber INT,
-  answer TEXT,
+idtry INT NOT NULL,
+  questionnumber INT NOT NULL,
+  answer TEXT NOT NULL,
   PRIMARY KEY(idtry, questionnumber),
    constraint ids
   foreign key (idtry) 
