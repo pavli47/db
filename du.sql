@@ -152,6 +152,11 @@ insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
 
 /*vymazat test 1   --- >vymaze sa aj z assignemnts aj tries aj answears */
 delete from tests where id= 1;
+ere id= 1;
+
+ alter table assignments add column deadline TIMESTAMP check(deadline> current_timestamp AT TIME ZONE 'UTC');
+ 
+ /*student moze test odovzdat aj neskor, pri hodnoteni bude treba skontrolovat di to bolo v deadline  */
 
  alter table assignments add column deadline TIMESTAMP check(deadline> current_timestamp AT TIME ZONE 'UTC');
  
