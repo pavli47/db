@@ -8,9 +8,6 @@ drop table if exists professors;
 
 
 
-
-
-
 create table students(
 id SERIAL PRIMARY KEY ,
 name TEXT NOT NULL,
@@ -72,7 +69,7 @@ test INT  NOT NULL,
 
    constraint tst
   foreign key (test)
-  referebces tests(id)
+  references tests(id)
    on delete cascade
   on update cascade
   
