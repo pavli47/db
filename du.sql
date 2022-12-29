@@ -80,7 +80,7 @@ test INT  NOT NULL,
 
 create table tries(
 id SERIAL,
-assignmentid INT,
+assignmentid integer,
   time timestamp without time zone NOT NULL
    DEFAULT (current_timestamp AT TIME ZONE 'UTC'), 
   PRIMARY KEY(assignmentid, time),
