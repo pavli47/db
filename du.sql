@@ -151,7 +151,7 @@ insert into answears(idtry ,questionnumber ,answer) values(3,1,'A');
 insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
 
 /*vymazat test 1   --- >vymaze sa aj z assignemnts aj tries aj answears */
-delete from tests where id= 1;
+/*delete from tests where id= 1;*/
 
 
 
