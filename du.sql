@@ -61,11 +61,16 @@ test INT  NOT NULL,
   constraint pr
   foreign key (fromprof)
   references professors(id)
+       on delete cascade
+  on update cascade,
   
+  constraint st
   foreign key (tostudent)
   references students(id)
+       on delete cascade
+  on update cascade,
 
-
+   constraint tst
   foreign key (test)
   referebces tests(id)
    on delete cascade
