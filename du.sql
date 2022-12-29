@@ -154,4 +154,5 @@ insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
 delete from tests where id= 1;
 
  alter table assignments add column deadline TIMESTAMP check(deadline> current_timestamp AT TIME ZONE 'UTC');
- alter table tries add column deadline TIMESTAMP REFERENCES assignments(deadline); 
+ 
+ /*student moze test odovzdat aj neskor, pri hodnoteni bude treba skontrolovat di to bolo v deadline  */
