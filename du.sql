@@ -1,10 +1,15 @@
+drop table if exists answears ;
+drop table if exists tries; 
+drop table if exists assignments;
+drop table if exists questions;
+drop table if exists tests;
 drop table if exists students;
 drop table if exists professors;
-drop table if exists tests;
-drop table if exists questions;
-drop table if exists assignments;
-drop table if exists tries; 
-drop table if exists answears ;
+
+
+
+
+
 
 create table students(
 id SERIAL PRIMARY KEY ,
