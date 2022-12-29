@@ -47,7 +47,7 @@ PRIMARY KEY(testid, questionnumber),
    ON UPDATE cascade
 );
 
-create table assignements(
+create table assignments(
 fromprof INT NOT NULL,
 tostudent INT NOT NULL,
 date DATE NOT NULL,
@@ -90,10 +90,7 @@ assignmentid INT,
      on delete cascade
   on update cascade
   
-  
-  
-  
-);
+ );
 
 
 create table answears(
