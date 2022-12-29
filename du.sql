@@ -83,13 +83,13 @@ id SERIAL,
 assignmentid integer NOT NULL,
   time timestamp without time zone NOT NULL
    DEFAULT (current_timestamp AT TIME ZONE 'UTC'), 
-  PRIMARY KEY(assignmentid, time),
+  
   constraint ids
   foreign key (assignmentid)
   references assignments(assignmnentid)
      on delete cascade
-  on update cascade
-  
+  on update cascade,
+  PRIMARY KEY(assignmentid, time)
  );
 
 
