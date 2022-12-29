@@ -52,7 +52,7 @@ fromprof INT NOT NULL,
 tostudent INT NOT NULL,
 date DATE NOT NULL,
 test INT  NOT NULL,
-  assignmnentid SERIAL,
+  assignmnentid SERIAL UNIQUE NOT NULL,
   PRIMARY KEY(test , tostudent ),
   
   constraint pr
