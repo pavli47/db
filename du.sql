@@ -52,7 +52,7 @@ fromprof INT NOT NULL,
 tostudent INT NOT NULL,
 date DATE NOT NULL,
 test INT  NOT NULL,
-  assignemntid SERIAL,
+  assignmnentid SERIAL,
   PRIMARY KEY(test , tostudent ),
   
   constraint pr
@@ -86,7 +86,7 @@ assignmentid INT,
   PRIMARY KEY(assignmentid, time),
   constraint ids
   foreign key (assignmentid)
-  references assignments(assignemntid)
+  references assignments(assignmnentid)
      on delete cascade
   on update cascade
   
@@ -120,7 +120,6 @@ insert into tests(author,name) values(3, 'Math1');
 insert into tests(author,name) values(3, 'Math2');
 insert into tests(author,name) values(10, 'error');
 
-'
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(1,1,'dog' , 'A', 'perro', 'caro','pero','gato');
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(1,2,'but' , 'B', 'perro', 'pero','lero','gato');
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(1,3,'hi' , 'C', 'perro', 'pero','hola','gato');
