@@ -74,7 +74,7 @@ test INT  NOT NULL,
   on update cascade);
 
 create table tries(
-id SERIAL,
+id SERIAL  UNIQUE NOT NULL,
 assignmentid integer NOT NULL,
   time timestamp without time zone NOT NULL
    DEFAULT (current_timestamp AT TIME ZONE 'UTC'), 
