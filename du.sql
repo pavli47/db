@@ -71,12 +71,7 @@ test INT  NOT NULL,
   foreign key (test)
   references tests(id)
    on delete cascade
-  on update cascade
-  
-
-)
-  ;
-
+  on update cascade);
 
 create table tries(
 id SERIAL,
