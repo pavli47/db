@@ -150,3 +150,9 @@ insert into answears(idtry ,questionnumber ,answer) values(2,2,'A');
 insert into answears(idtry ,questionnumber ,answer) values(3,1,'A');
 insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
 
+/*vymazat test 1   --- >vymaze sa aj z assignemnts aj tries aj answears * /
+delete from tests where id= 1;
+
+ alter table assignments add column deadline TIMESTAMP check(deadline> cur rent_timestamp AT TIME ZONE 'UTC');
+ alter table tries add column deadline CONSTRAINT y_x_fk_c REFERENCES assignemnts(deadline)
+ON UPDATE CASCADE ON DELETE CASCADE; 
