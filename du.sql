@@ -221,7 +221,6 @@ right join
  ani od studenta kedze obaja môzu byt spajany s viacerymi assignemnts. Alebo kebyze spojime tests s questions, nechame primary key id tak správna odpoved by uz bola závisla na otazke co by nebol primary key*/
  /*bcnf,  kandidátny at. alebo primárny kluc, ani jeho časť ,  nezavisia od iného ne- kľúča. Myslim ze je to splnene. Co by to mohlo kazit je tabulka tries,
  kde je SERIAL tryid, ale nie je primarny kluc, aleje kanditátny kluc kedzeje zakazdym unique takze by nemal narusit BCNF.*/
- */
- 
+
  
  
