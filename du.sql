@@ -106,6 +106,7 @@ idtry INT NOT NULL,
 insert into students(name,lastname) values('Anna', 'Adams');
 insert into students(name,lastname) values('Bruno', 'Bills');
 insert into students(name,lastname) values('Charlie', 'Collins');
+insert into students(name,lastname) values('Diana', 'Dean');
 
 insert into professors(name,lastname) values('Maria', 'Moralez');
 insert into professors(name,lastname) values('Nina', 'Nixon');
