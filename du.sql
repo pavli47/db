@@ -1,3 +1,4 @@
+drop view if exists view1;
 drop table if exists answears ;
 drop table if exists tries; 
 drop table if exists assignments;
