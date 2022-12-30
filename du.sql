@@ -212,7 +212,16 @@ right join
 
  on foo.testid = boo.test) as tab3 on tab2.idtry = tab3.idtry  ; 
  
- 
+ /*NORMALIZACIA  - 1nf - každý stlpec pozostáva z atomických hodnôt(meno , priezvisko ), v  stlpci je vzdy rovnaký data typ, majú jedinečné mená a na poradí tĺpcov nezáleží  */
+ /*2nf - každý nekľúčový atribút je od primárneho kľúča úplne funkčne závislý (v prípade kompozitných kľúčov od celého kľúča, nie len od jeho podmnožiny ) 
+ - napr v tabulke answears answer závisí od kompozitnho kľúča tryid aj question lebo na inú otázku v teste dáme inú odpoveď a zároven v inom pokuse môže na tú istú otázku odpovedať inak
+ kebyze napr spojime tabulky uestions a tests tak sa naruší forma, lebo správna odpoveď by už bola dependent na čísle otázky nie len na id_testu */
+ /*3nf - žiadne tranzatícne závislosti :  všetky neklúčové atribúty sú  navzájom nezávislé. Napr. v tests, name_of_test [name] nebude závisieť od profesora, kt. nie je primary key, 
+ lebo profesor mohol vydať viacero testov, bdue závisieť od test_id. Deadline v assignemnts nezáleží od profesora, 
+ ani od studenta kedze obaja môzu byt spajany s viacerymi assignemnts. Alebo kebyze spojime tests s questions, nechame primary key id tak správna odpoved by uz bola závisla na otazke co by nebol primary key*/
+ /*bcnf,  kandidátny at. alebo primárny kluc, ani jeho časť ,  nezavisia od iného ne- kľúča. Myslim ze je to splnene. Co by to mohlo kazit je tabulka tries,
+ kde je SERIAL tryid, ale nie je primarny kluc, aleje kanditátny kluc kedzeje zakazdym unique takze by nemal narusit BCNF.*/
+ */
  
  
  
