@@ -50,9 +50,10 @@ PRIMARY KEY(testid, questionnumber),
 create table assignments(
 fromprof INT NOT NULL,
 tostudent INT NOT NULL,
-date DATE NOT NULL,
+date timestamp without time zone NOT NULL
+   DEFAULT (current_timestamp AT TIME ZONE 'UTC'), 
 test INT  NOT NULL,
-  assignmnentid SERIAL UNIQUE NOT NULL,
+  assignmentid SERIAL UNIQUE NOT NULL,
   PRIMARY KEY(test , tostudent ),
   
   constraint pr
@@ -81,7 +82,7 @@ assignmentid integer NOT NULL,
   
   constraint ids
   foreign key (assignmentid)
-  references assignments(assignmnentid)
+  references assignments(assignmentid)
      on delete cascade
   on update cascade,
   PRIMARY KEY(assignmentid, time)
@@ -133,7 +134,11 @@ insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(14,
 insert into assignments(fromprof,tostudent,date ,test) values(1,1,'2022-12-12', 1);
 insert into assignments(fromprof,tostudent,date ,test) values(1,2,'2022-12-10', 2);
 insert into assignments(fromprof,tostudent,date ,test) values(2,3,'2022-11-10', 3);
-insert into assignments(fromprof,tostudent,date ,test) values(3,1,'2022-11-10', 4); /*error*/
+insert into assignments(fromprof,tostudent,date ,test) values(3,1,'2022-11-10', 4); 
+insert into assignments(fromprof,tostudent,date ,test) values(1,3,'2022-12-12', 1);
+
+insert into assignments(fromprof,tostudent,date ,test) values(1,4,'2022-12-12', 1);
+
 insert into assignments(fromprof,tostudent,date ,test) values(1,1,'2022-11-10', 1); /*error*/
 insert into assignments(fromprof,tostudent,date ,test) values(5,1,'2022-11-10', 2); /*error*/
 
@@ -141,6 +146,9 @@ insert into assignments(fromprof,tostudent,date ,test) values(5,1,'2022-11-10', 
 insert into tries(assignmentid) values(1);
 insert into tries(assignmentid) values(2);
 insert into tries(assignmentid) values(3);
+insert into tries(assignmentid) values(1);
+insert into tries(assignmentid) values(5);
+
 
 insert into answears(idtry ,questionnumber ,answer) values(1,1,'A');
 insert into answears(idtry ,questionnumber ,answer) values(1,2,'B');
@@ -149,6 +157,14 @@ insert into answears(idtry ,questionnumber ,answer) values(2,1,'B');
 insert into answears(idtry ,questionnumber ,answer) values(2,2,'A');
 insert into answears(idtry ,questionnumber ,answer) values(3,1,'A');
 insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
+
+insert into answears(idtry ,questionnumber ,answer) values(4,1,'D');
+insert into answears(idtry ,questionnumber ,answer) values(4,2,'D');
+
+insert into answears(idtry ,questionnumber ,answer) values(5,1,'A');
+insert into answears(idtry ,questionnumber ,answer) values(5,2,'B');
+insert into answears(idtry ,questionnumber ,answer) values(5,2,'B');
+
 
 /*vymazat test 1   --- >vymaze sa aj z assignemnts aj tries aj answears */
 /*delete from tests where id= 1;*/
@@ -159,3 +175,34 @@ insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
  alter table assignments add column deadline TIMESTAMP check(deadline> current_timestamp AT TIME ZONE 'UTC');
  
  /*student moze test odovzdat aj neskor, pri hodnoteni bude treba skontrolovat di to bolo v deadline  */
+ 
+ 
+ 
+ 
+ 
+ 
+ create view view1 as 
+
+select name,lastname,test,date ,time, score, answeared from( select s.name, s.lastname,t.name as test, a.date, tr.time,tr.id from
+	students s inner join  assignments a on a.tostudent = s.id
+	inner join tests t on t.id = a.test 
+	left join  tries tr on tr.assignmentid = a.assignmentid where not exists(select 1 from tries t2 where tr.assignmentid = t2.assignmentid and t2.time> tr.time) ) as tab
+left join   /*pocet zodpovedanych*/
+	(select idtry,  count(idtry) as answeared from answears  group by idtry) as  tab2 on tab.id = tab2.idtry 
+
+left join    /*skore*/
+(select idtry, cast(correct as float) / (cast(allq as float) /100) as score from
+
+ (select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
+) as foo  
+right join 
+ ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner  join assignments ass on ass.assignmentid  = t.assignmentid inner join  questions q on q.testid = ass.test and q.questionnumber = an.questionnumber and correct = answer group by idtry , ass.test  
+
+) as boo
+
+ on foo.testid = boo.test) as tab3 on tab2.idtry = tab3.idtry  ; 
+ 
+ 
+ 
+ 
+ 
