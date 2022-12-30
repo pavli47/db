@@ -136,9 +136,10 @@ insert into assignments(fromprof,tostudent,date ,test) values(1,1,'2022-12-12', 
 insert into assignments(fromprof,tostudent,date ,test) values(1,2,'2022-12-10', 2);
 insert into assignments(fromprof,tostudent,date ,test) values(2,3,'2022-11-10', 3);
 insert into assignments(fromprof,tostudent,date ,test) values(3,1,'2022-11-10', 4); 
+
 insert into assignments(fromprof,tostudent,date ,test) values(1,3,'2022-12-12', 1);
 
-insert into assignments(fromprof,tostudent,date ,test) values(1,4,'2022-12-12', 1);
+insert into assignments(fromprof,tostudent,date ,test) values(1,4,'2022-12-12', 2);
 
 insert into assignments(fromprof,tostudent,date ,test) values(1,1,'2022-11-10', 1); /*error*/
 insert into assignments(fromprof,tostudent,date ,test) values(5,1,'2022-11-10', 2); /*error*/
@@ -149,22 +150,29 @@ insert into tries(assignmentid) values(2);
 insert into tries(assignmentid) values(3);
 insert into tries(assignmentid) values(1);
 insert into tries(assignmentid) values(5);
+insert into tries(assignmentid) values(6);
 
 
 insert into answears(idtry ,questionnumber ,answer) values(1,1,'A');
 insert into answears(idtry ,questionnumber ,answer) values(1,2,'B');
 insert into answears(idtry ,questionnumber ,answer) values(1,3,'C');
+
 insert into answears(idtry ,questionnumber ,answer) values(2,1,'B');
 insert into answears(idtry ,questionnumber ,answer) values(2,2,'A');
 insert into answears(idtry ,questionnumber ,answer) values(3,1,'A');
-insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); /*error*/
 
-insert into answears(idtry ,questionnumber ,answer) values(4,1,'D');
+insert into answears(idtry ,questionnumber ,answer) values(4,1,'A'); 
+insert into answears(idtry ,questionnumber ,answer) values(4,1,'D'); /*error, nemoze menit odpoved*/
 insert into answears(idtry ,questionnumber ,answer) values(4,2,'D');
 
 insert into answears(idtry ,questionnumber ,answer) values(5,1,'A');
 insert into answears(idtry ,questionnumber ,answer) values(5,2,'B');
-insert into answears(idtry ,questionnumber ,answer) values(5,2,'B');
+insert into answears(idtry ,questionnumber ,answer) values(5,3,'B');
+
+
+insert into answears(idtry ,questionnumber ,answer) values(6,1,'C');
+insert into answears(idtry ,questionnumber ,answer) values(6,2,'A');
+
 
 
 /*vymazat test 1   --- >vymaze sa aj z assignemnts aj tries aj answears */
