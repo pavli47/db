@@ -92,10 +92,11 @@ assignmentid integer NOT NULL,
 
 create table answears(
 idtry INT NOT NULL,
+id SERIAL PRIMARY KEY ,
   questionnumber INT NOT NULL,
   answer TEXT NOT NULL,
-  PRIMARY KEY(idtry, questionnumber),
-   constraint ids
+
+  constraint ids
   foreign key (idtry) 
   references tries(id)
      on delete cascade
