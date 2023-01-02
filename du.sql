@@ -221,7 +221,7 @@ right join
 
 
 
-ALTER table tries t2 set score = (select  cast(correct as float) / (cast(allq as float) /100)  from
+update table tries t2 set score = (select  cast(correct as float) / (cast(allq as float) /100)  from
 
  (select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
 ) as foo  
