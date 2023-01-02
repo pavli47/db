@@ -78,6 +78,8 @@ test INT  NOT NULL,
 create table tries(
 id SERIAL  UNIQUE NOT NULL,
 assignmentid integer NOT NULL,
+	scores float,
+	scored text,
   time timestamp without time zone NOT NULL
    DEFAULT (current_timestamp AT TIME ZONE 'UTC'), 
   
@@ -102,6 +104,8 @@ id SERIAL PRIMARY KEY ,
      on delete cascade
   on update cascade
 );
+
+
 
 
 insert into students(name,lastname) values('Anna', 'Adams');
@@ -213,15 +217,59 @@ right join
 
  on foo.testid = boo.test) as tab3 on tab2.idtry = tab3.idtry  ; 
  
- /*NORMALIZACIA  - 1nf - každý stlpec pozostáva z atomických hodnôt(meno , priezvisko ), v  stlpci je vzdy rovnaký data typ, majú jedinečné mená a na poradí tĺpcov nezáleží  */
- /*2nf - každý nekľúčový atribút je od primárneho kľúča úplne funkčne závislý (v prípade kompozitných kľúčov od celého kľúča, nie len od jeho podmnožiny ) 
- - napr v tabulke answears answer závisí od kompozitnho kľúča tryid aj question lebo na inú otázku v teste dáme inú odpoveď a zároven v inom pokuse môže na tú istú otázku odpovedať inak
- kebyze napr spojime tabulky uestions a tests tak sa naruší forma, lebo správna odpoveď by už bola dependent na čísle otázky nie len na id_testu */
- /*3nf - žiadne tranzatícne závislosti :  všetky neklúčové atribúty sú  navzájom nezávislé. Napr. v tests, name_of_test [name] nebude závisieť od profesora, kt. nie je primary key, 
- lebo profesor mohol vydať viacero testov, bdue závisieť od test_id. Deadline v assignemnts nezáleží od profesora, 
- ani od studenta kedze obaja môzu byt spajany s viacerymi assignemnts. Alebo kebyze spojime tests s questions, nechame primary key id tak správna odpoved by uz bola závisla na otazke co by nebol primary key*/
- /*bcnf,  kandidátny at. alebo primárny kluc, ani jeho časť ,  nezavisia od iného ne- kľúča. Myslim ze je to splnene. Co by to mohlo kazit je tabulka tries,
- kde je SERIAL tryid, ale nie je primarny kluc, aleje kanditátny kluc kedzeje zakazdym unique takze by nemal narusit BCNF.*/
+ 
+
+
+
+ALTER table tries t2 set score = (select  cast(correct as float) / (cast(allq as float) /100)  from
+
+ (select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
+) as foo  
+right join 
+ ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner  
+  join assignments ass on ass.assignmentid  = t.assignmentid inner join 
+  questions q on q.testid = ass.test and q.questionnumber = an.questionnumber 
+  and correct = answer where t2.id = t.id group by idtry , ass.test  
+
+) as boo
+
+ on foo.testid = boo.test  );
+
+create or replace function put_score()
+returns TRIGGER
+language plpgsql
+as
+$$
+begin update tries t set score = (select  cast(correct as float) / (cast(allq as float) /100)  from
+
+ (select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
+) as foo  
+right join 
+ ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner  
+  join assignments ass on ass.assignmentid  = t.assignmentid inner join 
+  questions q on q.testid = ass.test and q.questionnumber = an.questionnumber 
+  and correct = answer where an.idtry = NEW.idtry group by idtry , ass.test  
+
+) as boo
+
+ on foo.testid = boo.test  ) where t.id = NEW.tryid ; RETURN NULL;
+
+END;
+$$;
+
+create trigger s_update after insert or update on answears for each row execute procedure put_score();
+
+
+
+
+
+
+
+
+
+
+
+
 
  
  
