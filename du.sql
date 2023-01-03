@@ -122,6 +122,7 @@ insert into tests(author,name) values(2, 'Slovak');
 insert into tests(author,name) values(3, 'Math1');
 insert into tests(author,name) values(3, 'Math2');
 insert into tests(author,name) values(10, 'error');
+insert into tests(author,name) values(3, 'Trivia');
 
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(1,1,'dog' , 'A', 'perro', 'caro','pero','gato');
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(1,2,'but' , 'B', 'perro', 'pero','lero','gato');
@@ -137,6 +138,13 @@ insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(3,3
 insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(14,1,'error','','','','','');
 
 
+insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(5,1,'Which of the following is not an international organisation?',
+									     'D','FIFA','NATO','ASEAN','FBI');
+insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(5,2,'Which of the following disorders is the fear of being alone?',
+									     'D','agoraphobia','aerophobia','acrophobia','none of the above');
+insert into questions(testid,questionnumber,question,correct,A,B,C,D) values(5,3,'In which country is Transylvania?',
+									     'B','Bulgaria','Romania','Croatia','Serbia');
+
 
 insert into assignments(fromprof,tostudent,date ,test) values(1,1,'2022-12-12', 1);
 insert into assignments(fromprof,tostudent,date ,test) values(1,2,'2022-12-10', 2);
@@ -146,6 +154,8 @@ insert into assignments(fromprof,tostudent,date ,test) values(3,1,'2022-11-10', 
 insert into assignments(fromprof,tostudent,date ,test) values(1,3,'2022-12-12', 1);
 
 insert into assignments(fromprof,tostudent,date ,test) values(1,4,'2022-12-12', 2);
+
+insert into assignments(fromprof,tostudent,date ,test) values(3,4,'2022-12-12', 5);
 
 insert into assignments(fromprof,tostudent,date ,test) values(1,1,'2022-11-10', 1); /*error*/
 insert into assignments(fromprof,tostudent,date ,test) values(5,1,'2022-11-10', 2); /*error*/
