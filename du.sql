@@ -220,8 +220,8 @@ right join
  
 
 
-
-update table tries t2 set score = (select  cast(correct as float) / (cast(allq as float) /100)  from
+/*vytvorenie atributov scores a scored*/
+update tries t2 set scores = (select  cast(correct as float) / (cast(allq as float) /100)  from
 
  (select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
 ) as foo  
@@ -229,18 +229,26 @@ right join
  ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner  
   join assignments ass on ass.assignmentid  = t.assignmentid inner join 
   questions q on q.testid = ass.test and q.questionnumber = an.questionnumber 
-  and correct = answer where t2.id = t.id group by idtry , ass.test  
+  and correct = answer where t2.id = t.id group by idtry , ass.test  ) as boo on foo.testid = boo.test  );
 
-) as boo
+update tries t2 set scored = (select  concat(cast(correct as text) ,'/', cast(allq as float))  from
+(select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
+) as foo
+right join
+ ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner
+  join assignments ass on ass.assignmentid  = t.assignmentid inner join
+  questions q on q.testid = ass.test and q.questionnumber = an.questionnumber 
+  and correct = answer where t2.id = t.id group by idtry , ass.test  ) as boo on foo.testid = boo.test  );
 
- on foo.testid = boo.test  );
+
+/*pridanie a zmenenie odpovede*/
 
 create or replace function put_score()
 returns TRIGGER
 language plpgsql
 as
 $$
-begin update tries t set score = (select  cast(correct as float) / (cast(allq as float) /100)  from
+begin update tries t set scores = (select  cast(correct as float) / (cast(allq as float) /100)  from
 
  (select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
 ) as foo  
@@ -248,22 +256,59 @@ right join
  ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner  
   join assignments ass on ass.assignmentid  = t.assignmentid inner join 
   questions q on q.testid = ass.test and q.questionnumber = an.questionnumber 
-  and correct = answer where an.idtry = NEW.idtry group by idtry , ass.test  
-
-) as boo
-
- on foo.testid = boo.test  ) where t.id = NEW.tryid ; RETURN NULL;
-
+  and correct = answer where an.idtry = NEW.idtry group by idtry , ass.test  ) as boo on foo.testid = boo.test  ) where t.id = NEW.idtry ; 
+ 
+ update tries t set scored = (select  concat(cast(correct as text) ,'/', cast(allq as float))  from
+(select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
+) as foo
+right join
+ ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner
+  join assignments ass on ass.assignmentid  = t.assignmentid inner join
+  questions q on q.testid = ass.test and q.questionnumber = an.questionnumber
+  and correct = answer where an.idtry = new.idtry group by idtry , ass.test
+) as boo on foo.testid = boo.test  ) where t.id = new.idtry ;
+RETURN NULL;
 END;
 $$;
-
+drop trigger  if exists s_update on answears;
 create trigger s_update after insert or update on answears for each row execute procedure put_score();
 
 
 
+/*odstranenie odpovede*/
+create or replace function del_score()
+returns TRIGGER
+language plpgsql
+as
+$$
+begin 
 
+update tries t set scores = (select  cast(correct as float) / (cast(allq as float) /100)  from
 
+ (select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
+) as foo
+right join
+ ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner
+  join assignments ass on ass.assignmentid  = t.assignmentid inner join
+  questions q on q.testid = ass.test and q.questionnumber = an.questionnumber
+  and correct = answer where an.idtry = old.idtry group by idtry , ass.test
+) as boo on foo.testid = boo.test  ) where t.id = old.idtry ;
 
+update tries t set scored = (select  concat(cast(correct as text) ,'/', cast(allq as float))  from
+(select count(testid) as allq, testid  from questions natural join tests where tests.id = testid group by  testid
+) as foo
+right join
+ ( select an.idtry , count(*) as correct, ass.test  from  tries  t inner join answears an on an.idtry = t.id inner
+  join assignments ass on ass.assignmentid  = t.assignmentid inner join
+  questions q on q.testid = ass.test and q.questionnumber = an.questionnumber
+  and correct = answer where an.idtry = old.idtry group by idtry , ass.test
+) as boo on foo.testid = boo.test  ) where t.id = old.idtry ;
+
+RETURN NULL;END;
+$$;
+
+drop trigger  if exists s_del on answears;
+create trigger s_del after delete on answears for each row execute procedure del_score();
 
 
 
