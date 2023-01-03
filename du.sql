@@ -320,6 +320,13 @@ $$;
 drop trigger  if exists s_del on answears;
 create trigger s_del after delete on answears for each row execute procedure del_score();
 
+ALTER table students add column nick TEXT; 
+update students set nick='A' where id = 1;
+update students set nick='B' where id = 2;
+update students set nick='C' where id = 3;
+update students set nick='D' where id = 4;
+
+
 
 
 
